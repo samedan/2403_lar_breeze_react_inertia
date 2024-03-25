@@ -57,3 +57,7 @@
 
 > routes\web.php Route::resource('project', ProjectController::class);
 > C: php artisan route:list
+
+## Views
+
+> HandleInertiaReqquesrs.php shares 'auth' to all the Components
