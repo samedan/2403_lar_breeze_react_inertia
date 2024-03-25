@@ -2,6 +2,8 @@
 
 > Youtube: https://www.youtube.com/watch?v=VrQRa-afCAk&ab_channel=TheCodeholic
 
+> this git: https://github.com/samedan/2403_lar_breeze_react_inertia
+
 ### INSTALATION
 
 ## Create Laravel Project
@@ -26,7 +28,15 @@
 
 > Logs: /storage/logs/laravel.log
 
-### Models, Factories, Migrations
+### DATABASE
+
+## Models, Factories, Migrations
 
 > php artisan make:model Project -fm
 > php artisan make:model Task -fm
+
+## Fake data
+
+> TaskFactory, ProjectFactory
+> DatabaseSeeder
+> php artisan migrate:refresh --seed
