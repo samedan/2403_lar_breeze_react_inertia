@@ -40,3 +40,20 @@
 > TaskFactory, ProjectFactory
 > DatabaseSeeder
 > php artisan migrate:refresh --seed
+
+### TINKER
+
+> php artisan tinker
+> \App\Models\Project::count()
+> \App\Models\Taks::count()
+> \App\Models\Taks::query()->paginate(5)->all()
+
+### CONTROLLERS
+
+> php artisan make:controller ProjectController --model=Project --requests --resource
+> php artisan make:controller TaskController --model=Task --requests --resource
+
+## Routes
+
+> routes\web.php Route::resource('project', ProjectController::class);
+> C: php artisan route:list
