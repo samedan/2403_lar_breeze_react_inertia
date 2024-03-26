@@ -62,7 +62,8 @@
 
 > HandleInertiaReqquesrs.php shares 'auth' to all the Components
 
-## Limit data sent to FrontEnd
+## Limit/Filter data sent to FrontEnd
 
-> php artisan make:resource TaskResource, ProjectResource
+> php artisan make:resource TaskResource, ProjectResource, UserResource
 > Project model -> ProjectController -> ProjectResource -> (props) on \resources\js\Pages\Project\Index.jsx
+> in UserResources -> filter for data coming into ProjectResources
