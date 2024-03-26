@@ -16,9 +16,20 @@ class ProjectController extends Controller
     public function index()
     {
         $query = Project::query();
+        
+        // queryParams comes from /resources/js/Pages/Project/Index.jsx
+        if(request("name")) {
+            $query->where("name","like","%".request("name")."%");
+        }
+        if(request('status')){
+            $query->where('status', request('status'));
+        }
+
+
         $projects = $query->paginate(10)->onEachSide(1);
         return Inertia::render("Project/Index", [
             'projects' => ProjectResource::collection($projects),
+            'queryParams' => request()->query() ? :null, // if NOT an empty array, if empty [] then Index.jsx transforms [] into {}
         ]);
     }
 
