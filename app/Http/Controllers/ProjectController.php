@@ -16,6 +16,10 @@ class ProjectController extends Controller
     public function index()
     {
         $query = Project::query();
+
+        // SORTING
+        $sortField = request("sort_field", 'created_at');
+        $sortDirection = request("sort_direction", 'desc');
         
         // queryParams comes from /resources/js/Pages/Project/Index.jsx
         if(request("name")) {
@@ -26,7 +30,7 @@ class ProjectController extends Controller
         }
 
 
-        $projects = $query->paginate(10)->onEachSide(1);
+        $projects = $query->orderBy($sortField, $sortDirection)->paginate(10)->onEachSide(1);
         return Inertia::render("Project/Index", [
             'projects' => ProjectResource::collection($projects),
             'queryParams' => request()->query() ? :null, // if NOT an empty array, if empty [] then Index.jsx transforms [] into {}
