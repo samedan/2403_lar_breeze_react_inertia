@@ -1,15 +1,12 @@
 import { Head, Link, router } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Pagination from "@/Components/Pagination";
-import {
-    PROJECT_STATUS_CLASS_MAP,
-    PROJECT_STATUS_TEXT_MAP,
-} from "./../../constants";
+import { TASK_STATUS_CLASS_MAP, TASK_STATUS_TEXT_MAP } from "../../constants";
 import TextInput from "@/Components/TextInput";
 import SelectInput from "@/Components/SelectInput";
 import TableHeading from "@/Components/TableHeading";
 
-export default function Index({ auth, projects, queryParams = null }) {
+export default function Index({ auth, tasks, queryParams = null }) {
     queryParams = queryParams || {};
 
     // SEARCHINg & SORTING
@@ -23,7 +20,7 @@ export default function Index({ auth, projects, queryParams = null }) {
         }
 
         console.log(queryParams);
-        router.get(route("project.index"), queryParams);
+        router.get(route("task.index"), queryParams);
     };
 
     const onKeyPress = (name, e) => {
@@ -48,32 +45,24 @@ export default function Index({ auth, projects, queryParams = null }) {
             queryParams.sort_direction = "asc";
         }
         console.log(queryParams);
-        router.get(route("project.index"), queryParams);
+        router.get(route("task.index"), queryParams);
     };
 
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex justify-between items-center">
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Projects
-                    </h2>
-                    <Link
-                        href={route("project.create")}
-                        className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600"
-                    >
-                        Add new
-                    </Link>
-                </div>
+                <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    Tasks
+                </h2>
             }
         >
-            <Head title="Projects" />
+            <Head title="Tasks" />
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
-                            {/* <pre>{JSON.stringify(projects, undefined, 2)}</pre> */}
+                            {/* <pre>{JSON.stringify(tasks, undefined, 2)}</pre> */}
                             <div className="overflow-auto">
                                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b-2 border-gray-500">
@@ -163,7 +152,7 @@ export default function Index({ auth, projects, queryParams = null }) {
                                             <th className="px-3 py-3">
                                                 <TextInput
                                                     className="w-full"
-                                                    placeholder="Project Name"
+                                                    placeholder="Task Name"
                                                     defaultValue={
                                                         queryParams.name
                                                     }
@@ -212,53 +201,53 @@ export default function Index({ auth, projects, queryParams = null }) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {projects.data.map((project) => (
+                                        {tasks.data.map((task) => (
                                             <tr
                                                 className="ng-white border-b dark:bg-gray-800 dark:border-gray-700"
-                                                key={project.id}
+                                                key={task.id}
                                             >
                                                 <td className="px-3 py-2">
-                                                    {project.id}
+                                                    {task.id}
                                                 </td>
                                                 <td className="px-3 py-2">
                                                     <img
-                                                        src={project.image_path}
+                                                        src={task.image_path}
                                                         style={{ width: 60 }}
                                                     />
                                                 </td>
                                                 <td className="px-3 py-2">
-                                                    {project.name}
+                                                    {task.name}
                                                 </td>
                                                 <td className="px-3 py-2">
                                                     <span
                                                         className={
                                                             "px-2 py-1 rounded text-white " +
-                                                            PROJECT_STATUS_CLASS_MAP[
-                                                                project.status
+                                                            TASK_STATUS_CLASS_MAP[
+                                                                task.status
                                                             ]
                                                         }
                                                     >
                                                         {
-                                                            PROJECT_STATUS_TEXT_MAP[
-                                                                project.status
+                                                            TASK_STATUS_TEXT_MAP[
+                                                                task.status
                                                             ]
                                                         }
                                                     </span>
                                                 </td>
                                                 <td className="px-3 py-2 text-nowrap">
-                                                    {project.created_at}
+                                                    {task.created_at}
                                                 </td>
                                                 <td className="px-3 py-2 text-nowrap">
-                                                    {project.due_date}
+                                                    {task.due_date}
                                                 </td>
                                                 <td className="px-3 py-2">
-                                                    {project.createdBy.name}
+                                                    {task.createdBy.name}
                                                 </td>
                                                 <td className="px-3 py-2">
                                                     <Link
                                                         href={route(
-                                                            "project.edit",
-                                                            project.id
+                                                            "task.edit",
+                                                            task.id
                                                         )}
                                                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-1"
                                                     >
@@ -266,8 +255,8 @@ export default function Index({ auth, projects, queryParams = null }) {
                                                     </Link>
                                                     <Link
                                                         href={route(
-                                                            "project.destroy",
-                                                            project.id
+                                                            "task.destroy",
+                                                            task.id
                                                         )}
                                                         className="font-medium text-red-500 dark:text-red-500 hover:underline mx-1"
                                                     >
@@ -280,7 +269,7 @@ export default function Index({ auth, projects, queryParams = null }) {
                                 </table>
                             </div>
                             {/* Pagination */}
-                            <Pagination links={projects.meta.links} />
+                            <Pagination links={tasks.meta.links} />
                         </div>
                     </div>
                 </div>
