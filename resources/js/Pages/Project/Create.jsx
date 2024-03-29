@@ -49,14 +49,15 @@ export default function Create({ auth }) {
                                     htmlFor="project_image_path"
                                     value="Project Image"
                                 />
+
                                 <TextInput
                                     id="project_image_path"
                                     type="file"
                                     name="image"
-                                    value={data.image}
+                                    // value={data.image}
                                     className="mt-1 block w-full"
                                     onChange={(e) =>
-                                        setData("image", e.target.value)
+                                        setData("image", e.target.files[0])
                                     }
                                 />
                                 <InputError
@@ -133,7 +134,7 @@ export default function Create({ auth }) {
                             <div>
                                 <InputLabel
                                     htmlFor="project_status"
-                                    value="Status"
+                                    value="status"
                                 />
                                 <SelectInput
                                     id="project_status"
@@ -151,7 +152,7 @@ export default function Create({ auth }) {
                                     <option value="completed">Completed</option>
                                 </SelectInput>
                                 <InputError
-                                    message={errors.project_status}
+                                    message={errors.status}
                                     className="mt-2"
                                 />
                             </div>

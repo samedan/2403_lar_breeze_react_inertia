@@ -61,6 +61,7 @@
 ## Views
 
 > HandleInertiaReqquesrs.php shares 'auth' to all the Components
+> PP
 
 ## Limit/Filter data sent to FrontEnd
 
@@ -72,3 +73,7 @@
 
 > /resources/js/Pages/Project/Create.jsx
 > StoreProjectRequest.jsx -> Rules for the Form
+
+## Image storage in public folder
+
+> php artisan storage:link
