@@ -6,6 +6,7 @@ use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class ProjectController extends Controller
@@ -34,6 +35,7 @@ class ProjectController extends Controller
         return Inertia::render("Project/Index", [
             'projects' => ProjectResource::collection($projects),
             'queryParams' => request()->query() ? :null, // if NOT an empty array, if empty [] then Index.jsx transforms [] into {}
+            'success' => session('success')  // message sent by PostProject
         ]);
     }
 
@@ -50,7 +52,12 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+        $data = $request->validated();
+        $data['created_by'] = Auth::id();
+        $data['updated_by'] = Auth::id();
+        $project = Project::create($data);
+        return to_route('project.index')->with('success', 'Project created successfully');
+        // dd($data);
     }
 
     /**

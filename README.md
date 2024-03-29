@@ -67,3 +67,8 @@
 > php artisan make:resource TaskResource, ProjectResource, UserResource
 > Project model -> ProjectController -> ProjectResource -> (props) on \resources\js\Pages\Project\Index.jsx
 > in UserResources -> filter for data coming into ProjectResources
+
+### ADD DATA
+
+> /resources/js/Pages/Project/Create.jsx
+> StoreProjectRequest.jsx -> Rules for the Form
