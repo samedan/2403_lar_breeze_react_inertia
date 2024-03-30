@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Storage;
 
 class ProjectController extends Controller
 {
@@ -99,7 +100,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return inertia('Project/Edit', ['project'=> new ProjectResource($project)]);
     }
 
     /**
@@ -107,7 +108,23 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $data = $request->validated();
+        
+        
+        $image = $data['image'] ?? null;
+        $data['updated_by'] = Auth::id();
+        if($image) {
+            // delete current image
+            if($project->image_path) {
+                Storage::disk('public')->delete($project->image_path);
+            }
+            // save new image
+            $data['image_path']= $image->store('project/'.Str::random(), 'public');
+        }
+        // dd($data);
+        $project->update($data);
+
+        return to_route('project.index')->with('success',"Project \"$project->name\" was updated");
     }
 
     /**
