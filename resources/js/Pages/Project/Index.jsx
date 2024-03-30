@@ -51,6 +51,14 @@ export default function Index({ auth, projects, queryParams = nul, success }) {
         router.get(route("project.index"), queryParams);
     };
 
+    const deleteProject = (project) => {
+        if (!window.confirm("Are you sure you want to delete the project?")) {
+            return;
+        } else {
+            router.delete(route("project.destroy", project.id));
+        }
+    };
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -234,7 +242,14 @@ export default function Index({ auth, projects, queryParams = nul, success }) {
                                                     />
                                                 </td>
                                                 <td className="px-3 py-2">
-                                                    {project.name}
+                                                    <Link
+                                                        href={route(
+                                                            "project.show",
+                                                            project.id
+                                                        )}
+                                                    >
+                                                        {project.name}
+                                                    </Link>
                                                 </td>
                                                 <td className="px-3 py-2">
                                                     <span
@@ -261,7 +276,7 @@ export default function Index({ auth, projects, queryParams = nul, success }) {
                                                 <td className="px-3 py-2">
                                                     {project.createdBy.name}
                                                 </td>
-                                                <td className="px-3 py-2">
+                                                <td className="px-3 py-2 text-nowrap">
                                                     <Link
                                                         href={route(
                                                             "project.edit",
@@ -271,15 +286,16 @@ export default function Index({ auth, projects, queryParams = nul, success }) {
                                                     >
                                                         Edit
                                                     </Link>
-                                                    <Link
-                                                        href={route(
-                                                            "project.destroy",
-                                                            project.id
-                                                        )}
+                                                    <button
+                                                        onClick={(e) =>
+                                                            deleteProject(
+                                                                project
+                                                            )
+                                                        }
                                                         className="font-medium text-red-500 dark:text-red-500 hover:underline mx-1"
                                                     >
                                                         Delete
-                                                    </Link>
+                                                    </button>
                                                 </td>
                                             </tr>
                                         ))}

@@ -3,6 +3,7 @@
 > Youtube: https://www.youtube.com/watch?v=VrQRa-afCAk&ab_channel=TheCodeholic
 
 > this git: https://github.com/samedan/2403_lar_breeze_react_inertia
+> original git : https://github.com/thecodeholic/laravel11-react-spa
 
 ### INSTALATION
 
