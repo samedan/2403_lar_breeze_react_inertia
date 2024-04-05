@@ -9,15 +9,16 @@ import { Head, Link, useForm } from "@inertiajs/react";
 export default function Create({ auth }) {
     // Inertia Form stuff
     const { data, setData, post, processing, errors, reset } = useForm({
-        image: "",
         name: "",
-        status: "",
-        description: "",
-        due_date: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
     });
 
     const onSubmit = (e) => {
         e.preventDefault();
+
+        console.log(data);
 
         post(route("user.store"));
     };
@@ -43,28 +44,6 @@ export default function Create({ auth }) {
                             onSubmit={onSubmit}
                             className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
                         >
-                            {/* IMAGE */}
-                            <div>
-                                <InputLabel
-                                    htmlFor="user_image_path"
-                                    value="User Image"
-                                />
-
-                                <TextInput
-                                    id="user_image_path"
-                                    type="file"
-                                    name="image"
-                                    // value={data.image}
-                                    className="mt-1 block w-full"
-                                    onChange={(e) =>
-                                        setData("image", e.target.files[0])
-                                    }
-                                />
-                                <InputError
-                                    message={errors.image}
-                                    className="mt-2"
-                                />
-                            </div>
                             {/* NAME */}
                             <div>
                                 <InputLabel
@@ -87,75 +66,74 @@ export default function Create({ auth }) {
                                     className="mt-2"
                                 />
                             </div>
-                            {/* DESCRIPTION */}
+                            {/* EMAIL */}
                             <div>
                                 <InputLabel
-                                    htmlFor="user_description"
-                                    value="Description"
-                                />
-                                <TextAreaInput
-                                    id="user_description"
-                                    name="description"
-                                    value={data.description}
-                                    className="mt-1 block w-full"
-                                    // isFocused={true}
-                                    onChange={(e) =>
-                                        setData("description", e.target.value)
-                                    }
-                                />
-                                <InputError
-                                    message={errors.description}
-                                    className="mt-2"
-                                />
-                            </div>
-                            {/* DUE DATE */}
-                            <div>
-                                <InputLabel
-                                    htmlFor="user_due_date"
-                                    value="User Deadline"
+                                    htmlFor="user_email"
+                                    value="User Email"
                                 />
                                 <TextInput
-                                    id="user_due_date"
-                                    type="date"
-                                    name="due_date"
-                                    value={data.due_date}
+                                    id="user_email"
+                                    type="text"
+                                    name="email"
+                                    value={data.email}
                                     className="mt-1 block w-full"
                                     // isFocused={true}
                                     onChange={(e) =>
-                                        setData("due_date", e.target.value)
+                                        setData("email", e.target.value)
                                     }
                                 />
                                 <InputError
-                                    message={errors.due_date}
+                                    message={errors.email}
                                     className="mt-2"
                                 />
                             </div>
-                            {/* STATUS */}
+                            {/* PASSWORD */}
                             <div>
                                 <InputLabel
-                                    htmlFor="user_status"
-                                    value="status"
+                                    htmlFor="password"
+                                    value="Password"
                                 />
-                                <SelectInput
-                                    id="user_status"
-                                    name="status"
+                                <TextInput
+                                    id="password"
+                                    type="password"
+                                    name="password"
+                                    value={data.password}
                                     className="mt-1 block w-full"
                                     onChange={(e) =>
-                                        setData("status", e.target.value)
+                                        setData("password", e.target.value)
                                     }
-                                >
-                                    <option value="">Select status:</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="in_progress">
-                                        In Progress
-                                    </option>
-                                    <option value="completed">Completed</option>
-                                </SelectInput>
+                                />
                                 <InputError
-                                    message={errors.status}
+                                    message={errors.password}
                                     className="mt-2"
                                 />
                             </div>
+                            {/* PASSWORD */}
+                            <div>
+                                <InputLabel
+                                    htmlFor="password_confirmation"
+                                    value="Confirm Password"
+                                />
+                                <TextInput
+                                    id="password_confirmation"
+                                    type="password"
+                                    name="password_confirmation"
+                                    value={data.password_confirmation}
+                                    className="mt-1 block w-full"
+                                    onChange={(e) =>
+                                        setData(
+                                            "password_confirmation",
+                                            e.target.value
+                                        )
+                                    }
+                                />
+                                <InputError
+                                    message={errors.password_confirmation}
+                                    className="mt-2"
+                                />
+                            </div>
+
                             {/* <buttons> */}
                             <div className="mt-4 text-right">
                                 <Link

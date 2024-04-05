@@ -82,3 +82,10 @@
 ## Edit Image in ProjectList edit.jsx
 
 > INERTIA PUT/EDIT Form : \_method: "PUT" & onSubmit -> post(route("project.update", project.data.id));
+
+### NEW USER
+
+## Password rules
+
+> StoreUserRequest.php
+> Create.jsx -> processing = loading
