@@ -78,3 +78,7 @@
 ## Image storage in public folder
 
 > php artisan storage:link
+
+## Edit Image in ProjectList edit.jsx
+
+> INERTIA PUT/EDIT Form : \_method: "PUT" & onSubmit -> post(route("project.update", project.data.id));

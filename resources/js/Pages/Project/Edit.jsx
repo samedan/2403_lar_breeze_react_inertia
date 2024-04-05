@@ -13,21 +13,24 @@ export default function Edit({ auth, project }) {
     // Inertia Form stuff
     console.log(project.data);
     console.log(project.data.name);
-    const { data, setData, put, processing, errors, reset } = useForm({
+    const { data, setData, post, processing, errors, reset } = useForm({
         image: project.data.image || "",
         // image_path: project.image_path || "",
         name: project.data.name || "",
         status: project.data.status || "",
         description: project.data.description || "",
         due_date: project.data.due_date || "",
+        _method: "PUT",
     });
 
     const onSubmit = (e) => {
         e.preventDefault();
-        // console.log(project.data);
+        console.log("project.data");
+        console.log(project.data);
+        console.log(project.data.id);
         console.log(data);
 
-        put(route("project.update", project.data.id));
+        post(route("project.update", project.data.id));
     };
 
     return (
@@ -51,6 +54,9 @@ export default function Edit({ auth, project }) {
                             onSubmit={onSubmit}
                             className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
                         >
+                            <pre className="text-white">
+                                {JSON.stringify(data, undefined, 2)}
+                            </pre>
                             {/* IMAGE */}
                             {project.data.image_path && (
                                 <div className="mb-4">

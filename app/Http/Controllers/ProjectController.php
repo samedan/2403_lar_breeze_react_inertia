@@ -110,18 +110,18 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
         
-        
+        // dd($data);
         $image = $data['image'] ?? null;
         $data['updated_by'] = Auth::id();
         if($image) {
             // delete current image
             if($project->image_path) {
-                Storage::disk('public')->delete($project->image_path);
+                Storage::disk('public')->deleteDirectory(dirname($project->image_path));
             }
             // save new image
             $data['image_path']= $image->store('project/'.Str::random(), 'public');
         }
-        // dd($data);
+        
         $project->update($data);
 
         return to_route('project.index')->with('success',"Project \"$project->name\" was updated");
@@ -135,6 +135,9 @@ class ProjectController extends Controller
         $name = $project->name;
         $project->tasks()->delete();
         $project->delete();
+        if($project->image_path) {
+            Storage::disk('public')->deleteDirectory(dirname($project->image_path));
+        }
         return to_route('project.index')->with('success',"Project \"$name\" was deleted");
     }
 }
