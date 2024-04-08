@@ -29,7 +29,7 @@ class UserController extends Controller
         if(request("email")) {
             $query->where("email","like","%".request("email")."%");
         }
-      
+       
 
         $users = $query->orderBy($sortField, $sortDirection)->paginate(10)->onEachSide(1);
         return Inertia::render("User/Index", [
@@ -72,9 +72,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+    
     public function edit(User $user)
     {
-        //
+        return inertia('User/Edit', ['user'=> new UserCrudResource($user)]);
     }
 
     /**
@@ -82,7 +83,17 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $data = $request->validated();
+        $data['email_verified_at'] = time();
+        $password = $data['password'] ?? null;
+        if($password) {
+            $data['password'] = bcrypt($password);
+        } else {
+            unset($data['password']);
+        }
+        $user->update($data);
+
+        return to_route('user.index')->with('success',"User \"$user->name\" was updated");
     }
 
     /**

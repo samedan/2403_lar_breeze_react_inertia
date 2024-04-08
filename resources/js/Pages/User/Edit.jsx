@@ -7,30 +7,28 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function Edit({ auth, user }) {
-    // console.log(userData);
+    // console.log(user);
 
     // const user = userData.data;
     // Inertia Form stuff
-    console.log(user.data);
-    console.log(user.data.name);
+    // console.log(user.data);
+    // console.log(user.data.name);
     const { data, setData, post, processing, errors, reset } = useForm({
-        image: user.data.image || "",
-        // image_path: user.image_path || "",
-        name: user.data.name || "",
-        status: user.data.status || "",
-        description: user.data.description || "",
-        due_date: user.data.due_date || "",
+        name: user.name || "",
+        email: user.email || "",
+        password: "",
+        password_confirmation: "",
         _method: "PUT",
     });
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log("user.data");
-        console.log(user.data);
-        console.log(user.data.id);
-        console.log(data);
+        // console.log("user.data");
+        // console.log(user.data);
+        // console.log(user.data.id);
+        // console.log(data);
 
-        post(route("user.update", user.data.id));
+        post(route("user.update", user.id));
     };
 
     return (
@@ -39,7 +37,7 @@ export default function Edit({ auth, user }) {
             header={
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Edit User "{user.data.name}"{" "}
+                        Edit User "{user.name}"{" "}
                     </h2>
                 </div>
             }
@@ -57,36 +55,6 @@ export default function Edit({ auth, user }) {
                             <pre className="text-white">
                                 {JSON.stringify(data, undefined, 2)}
                             </pre>
-                            {/* IMAGE */}
-                            {user.data.image_path && (
-                                <div className="mb-4">
-                                    <img
-                                        src={user.data.image_path}
-                                        className="w-64"
-                                    />
-                                </div>
-                            )}
-                            <div>
-                                <InputLabel
-                                    htmlFor="user_image_path"
-                                    value="User Image"
-                                />
-
-                                <TextInput
-                                    id="user_image_path"
-                                    type="file"
-                                    name="image"
-                                    // value={data.image}
-                                    className="mt-1 block w-full"
-                                    onChange={(e) =>
-                                        setData("image", e.target.files[0])
-                                    }
-                                />
-                                <InputError
-                                    message={errors.image}
-                                    className="mt-2"
-                                />
-                            </div>
                             {/* NAME */}
                             <div>
                                 <InputLabel
@@ -109,73 +77,74 @@ export default function Edit({ auth, user }) {
                                     className="mt-2"
                                 />
                             </div>
-                            {/* DESCRIPTION */}
+                            {/* EMAIL */}
                             <div>
                                 <InputLabel
-                                    htmlFor="user_description"
-                                    value="Description"
-                                />
-                                <TextAreaInput
-                                    id="user_description"
-                                    name="description"
-                                    value={data.description}
-                                    className="mt-1 block w-full"
-                                    // isFocused={true}
-                                    onChange={(e) =>
-                                        setData("description", e.target.value)
-                                    }
-                                />
-                                <InputError
-                                    message={errors.description}
-                                    className="mt-2"
-                                />
-                            </div>
-                            {/* DUE DATE */}
-                            <div>
-                                <InputLabel
-                                    htmlFor="user_due_date"
-                                    value="User Deadline"
+                                    htmlFor="user_email"
+                                    value="User Email"
                                 />
                                 <TextInput
-                                    id="user_due_date"
-                                    type="date"
-                                    name="due_date"
-                                    value={data.due_date}
+                                    id="user_email"
+                                    type="text"
+                                    name="email"
+                                    value={data.email}
                                     className="mt-1 block w-full"
                                     // isFocused={true}
                                     onChange={(e) =>
-                                        setData("due_date", e.target.value)
+                                        setData("email", e.target.value)
                                     }
                                 />
                                 <InputError
-                                    message={errors.due_date}
+                                    message={errors.email}
                                     className="mt-2"
                                 />
                             </div>
-                            {/* STATUS */}
+                            {/* PASSWORD */}
                             <div>
                                 <InputLabel
-                                    htmlFor="user_status"
-                                    value="status"
+                                    htmlFor="password"
+                                    value="Password"
                                 />
-                                <SelectInput
-                                    id="user_status"
-                                    name="status"
+                                <pre className="text-xs text-gray-600">
+                                    Minimum 8 characters, letters and symbols
+                                </pre>
+                                <TextInput
+                                    id="password"
+                                    type="password"
+                                    name="password"
+                                    value={data.password}
                                     className="mt-1 block w-full"
                                     onChange={(e) =>
-                                        setData("status", e.target.value)
+                                        setData("password", e.target.value)
                                     }
-                                    value={data.status}
-                                >
-                                    <option value="">Select status:</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="in_progress">
-                                        In Progress
-                                    </option>
-                                    <option value="completed">Completed</option>
-                                </SelectInput>
+                                />
                                 <InputError
-                                    message={errors.user_status}
+                                    message={errors.password}
+                                    className="mt-2"
+                                />
+                            </div>
+                            {/* CONFIRM PASSWORD */}
+                            <div>
+                                <InputLabel
+                                    htmlFor="password_confirmation"
+                                    value="Confirm Password"
+                                />
+
+                                <TextInput
+                                    id="password_confirmation"
+                                    type="password"
+                                    name="password_confirmation"
+                                    value={data.password_confirmation}
+                                    className="mt-1 block w-full"
+                                    onChange={(e) =>
+                                        setData(
+                                            "password_confirmation",
+                                            e.target.value
+                                        )
+                                    }
+                                />
+                                <InputError
+                                    message={errors.password_confirmation}
                                     className="mt-2"
                                 />
                             </div>

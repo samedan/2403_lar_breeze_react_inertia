@@ -67,7 +67,7 @@ class ProjectController extends Controller
         // dd($data);
     }
 
-    /**
+    /** 
      * Display the specified resource.
      */
     public function show(Project $project)

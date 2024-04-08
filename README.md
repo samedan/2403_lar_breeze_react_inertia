@@ -89,3 +89,11 @@
 
 > StoreUserRequest.php
 > Create.jsx -> processing = loading
+
+## Disable backend->frontend data.data
+
+> UserCrudResource.php -> public static $wrap = false;
+
+### Add Automatic Validation on User change password
+
+> UserController -> function update() -> $data['email_verified_at'] = time();

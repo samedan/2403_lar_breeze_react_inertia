@@ -8,6 +8,11 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserCrudResource extends JsonResource
 {
+
+    // disables data.data
+    public static $wrap = false; 
+
+    
     /**
      * Transform the resource into an array.
      *
@@ -16,7 +21,7 @@ class UserCrudResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [ 
-         
+
             "id"=> $this->id,
             "name"=> $this->name,
             "email"=> $this->email,
