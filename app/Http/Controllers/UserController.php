@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\UserResource;
+use App\Http\Resources\UserCrudResource;
+// use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -32,7 +33,7 @@ class UserController extends Controller
 
         $users = $query->orderBy($sortField, $sortDirection)->paginate(10)->onEachSide(1);
         return Inertia::render("User/Index", [
-            'users' => UserResource::collection($users),
+            'users' => UserCrudResource::collection($users),
             'queryParams' => request()->query() ? :null, // if NOT an empty array, if empty [] then Index.jsx transforms [] into {}
             'success' => session('success')  // message sent by PostUser
         ]);

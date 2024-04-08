@@ -8,6 +8,8 @@ import TableHeading from "@/Components/TableHeading";
 export default function Index({ auth, users, queryParams = nul, success }) {
     queryParams = queryParams || {};
 
+    console.log(users);
+
     // SEARCHINg & SORTING
 
     const searchFieldChanged = (name, value) => {
@@ -188,8 +190,8 @@ export default function Index({ auth, users, queryParams = nul, success }) {
                                             </th>
                                             <th className="px-3 py-3"></th>
                                             <th className="px-3 py-3"></th>
-                                            <th className="px-3 py-3"></th>
-                                            <th className="px-3 py-3"></th>
+                                            {/* <th className="px-3 py-3"></th> */}
+                                            {/* <th className="px-3 py-3"></th> */}
                                         </tr>
                                     </thead>
                                     <tbody>
