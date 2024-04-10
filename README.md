@@ -97,3 +97,7 @@
 ### Add Automatic Validation on User change password
 
 > UserController -> function update() -> $data['email_verified_at'] = time();
+
+### TASKS
+
+> Pass projects in TaskController.php
