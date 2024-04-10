@@ -50,7 +50,7 @@ class TaskController extends Controller
     public function create()
     {
         $projects = Project::query()->orderBy('name', 'asc')->get();
-        $users = User::all();
+        $users = User::query()->orderBy('name', 'asc')->get();
         return Inertia::render('Task/Create', [
             'projects' => ProjectResource::collection($projects),
             'users' => UserResource::collection($users),
@@ -107,7 +107,13 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        return inertia('Task/Edit', ['task'=> new TaskResource($task)]);
+        $projects = Project::query()->orderBy('name', 'asc')->get();
+        $users = User::query()->orderBy('name', 'asc')->get();
+        return Inertia::render('Task/Edit', [
+            'task'=> new TaskResource($task),
+            'projects' => ProjectResource::collection($projects),
+            'users' => UserResource::collection($users),
+        ]);      
     }
 
     /**
