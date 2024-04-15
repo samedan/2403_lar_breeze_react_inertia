@@ -140,4 +140,32 @@ class TaskController extends Controller
         }
         return to_route('task.index')->with('success',"Task \"$name\" was deleted");
     }
+
+    // MY Tasks
+    public function myTasks()
+    {
+        $user = auth()->user(); // current User
+        $query = Task::query()->where('assigned_user_id', $user->id); 
+
+        // SORTING
+        $sortField = request("sort_field", 'created_at');
+        $sortDirection = request("sort_direction", 'desc');
+        
+        // queryParams comes from /resources/js/Pages/Task/Index.jsx
+        if(request("name")) {
+            $query->where("name","like","%".request("name")."%");
+        }
+        if(request('status')){
+            $query->where('status', request('status'));
+        }
+
+
+        $tasks = $query->orderBy($sortField, $sortDirection)->paginate(10)->onEachSide(1);
+        return Inertia::render("Task/Index", [
+            'tasks' => TaskResource::collection($tasks),
+            'queryParams' => request()->query() ? :null, // if NOT an empty array, if empty [] then Index.jsx transforms [] into {}
+            'success' => session('success')  // message sent by TaskTables.jsx
+        ]);
+    }
+
 }

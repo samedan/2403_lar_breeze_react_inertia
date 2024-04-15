@@ -38,8 +38,10 @@ Route::middleware(['auth','verified'])->group(function() {
 
     // Project Routes
     Route::resource('project', ProjectController::class);
+    // My Tasks Routes (current logged in user )
+    Route::get('/task/my-tasks',[ TaskController::class,'myTasks'])->name('task.myTasks');
     // Task Routes
-    Route::resource('task', TaskController::class);
+    Route::resource('task', TaskController::class);    
     // User Routes
     Route::resource('user', UserController::class);
 });
