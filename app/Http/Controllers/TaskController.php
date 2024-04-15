@@ -41,6 +41,7 @@ class TaskController extends Controller
         return Inertia::render("Task/Index", [
             'tasks' => TaskResource::collection($tasks),
             'queryParams' => request()->query() ? :null, // if NOT an empty array, if empty [] then Index.jsx transforms [] into {}
+            'success' => session('success')  // message sent by TaskTables.jsx
         ]);
     }
 
@@ -79,26 +80,12 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        $query = $task->tasks();
-
-        $sortField = request("sort_field", 'created_at');
-        $sortDirection = request("sort_direction", "desc");
-
-        if (request("name")) {
-            $query->where("name", "like", "%" . request("name") . "%");
-        }
-        if (request("status")) {
-            $query->where("status", request("status"));
-        }
-
-        $tasks = $query->orderBy($sortField, $sortDirection)
-            ->paginate(10)
-            ->onEachSide(1);
+       
         return inertia('Task/Show', [
             'task' => new TaskResource($task),
             // "tasks" => TaskResource::collection($tasks),
-            'queryParams' => request()->query() ?: null,
-            'success' => session('success'),
+            // 'queryParams' => request()->query() ?: null,
+            // 'success' => session('success'),
         ]);
     }
 
@@ -146,7 +133,7 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         $name = $task->name;
-        $task->tasks()->delete();
+        // $task->tasks()->delete();
         $task->delete();
         if($task->image_path) {
             Storage::disk('public')->deleteDirectory(dirname($task->image_path));

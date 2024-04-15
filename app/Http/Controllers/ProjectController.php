@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ProjectResource;
+use App\Http\Resources\TaskResource;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
@@ -89,7 +90,7 @@ class ProjectController extends Controller
             ->onEachSide(1);
         return inertia('Project/Show', [
             'project' => new ProjectResource($project),
-            // "tasks" => TaskResource::collection($tasks),
+            "tasks" => TaskResource::collection($tasks),
             'queryParams' => request()->query() ?: null,
             'success' => session('success'),
         ]);

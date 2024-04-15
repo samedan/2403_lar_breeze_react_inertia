@@ -7,7 +7,7 @@ import SelectInput from "@/Components/SelectInput";
 import TableHeading from "@/Components/TableHeading";
 import TasksTable from "./TasksTables";
 
-export default function Index({ auth, tasks, queryParams = null }) {
+export default function Index({ auth, tasks, success, queryParams = null }) {
     queryParams = queryParams || {};
 
     // SEARCHINg & SORTING
@@ -75,7 +75,7 @@ export default function Index({ auth, tasks, queryParams = null }) {
                             <TasksTable
                                 tasks={tasks}
                                 queryParams={queryParams}
-                                // success={success}
+                                success={success}
                             />
 
                             {/* Pagination */}
