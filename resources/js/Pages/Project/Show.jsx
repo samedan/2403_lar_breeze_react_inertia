@@ -4,8 +4,9 @@ import {
     PROJECT_STATUS_CLASS_MAP,
     PROJECT_STATUS_TEXT_MAP,
 } from "@/constants.jsx";
-// import TasksTable from "../Task/TasksTable";
+import TasksTable from "../Task/TasksTables";
 export default function Show({ auth, success, project, tasks, queryParams }) {
+    console.log(project);
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -15,7 +16,7 @@ export default function Show({ auth, success, project, tasks, queryParams }) {
                         {`Project "${project.data.name}"`}
                     </h2>
                     <Link
-                        // href={route("project.edit", project.id)}
+                        href={route("project.edit", project.data.id)}
                         className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600"
                     >
                         Edit
@@ -125,7 +126,7 @@ export default function Show({ auth, success, project, tasks, queryParams }) {
                 </div>
             </div>
 
-            <div className="pb-12">
+            {/* <div className="pb-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
@@ -135,11 +136,10 @@ export default function Show({ auth, success, project, tasks, queryParams }) {
                                 queryParams={queryParams}
                                 hideProjectColumn={true}
                             />
-                            {/* No tasks yet */}
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </AuthenticatedLayout>
     );
 }

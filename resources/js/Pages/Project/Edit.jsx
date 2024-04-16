@@ -11,8 +11,8 @@ export default function Edit({ auth, project }) {
 
     // const project = projectData.data;
     // Inertia Form stuff
-    console.log(project.data);
-    console.log(project.data.name);
+    // console.log(project.data);
+    // console.log(project.data.name);
     const { data, setData, post, processing, errors, reset } = useForm({
         image: project.data.image || "",
         // image_path: project.image_path || "",

@@ -17,7 +17,7 @@ export default function Show({ auth, task }) {
                         {`Task "${task.name}"`}
                     </h2>
                     <Link
-                        // href={route("task.edit", task.id)}
+                        href={route("task.edit", task.id)}
                         className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600"
                     >
                         Edit

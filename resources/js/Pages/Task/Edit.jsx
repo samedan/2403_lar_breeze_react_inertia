@@ -48,7 +48,7 @@ export default function Edit({ auth, task, projects, users }) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         {/* <div className="p-6 text-gray-900 dark:text-gray-100"> */}
-                        <pre>{JSON.stringify(task, undefined, 2)}</pre>
+
                         <form
                             onSubmit={onSubmit}
                             className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
@@ -62,7 +62,7 @@ export default function Edit({ auth, task, projects, users }) {
                                     htmlFor="task_project_id"
                                     value="Project"
                                 />
-                                {data.project_id}
+                                {/* {data.project_id} */}
                                 <SelectInput
                                     id="project_id"
                                     name="task_project_id"
